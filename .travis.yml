@@ -6,6 +6,7 @@ sudo: false
 cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/deps/cmake
+    - ${TRAVIS_BUILD_DIR}/deps/llvm-3.8.0/install
     - ${TRAVIS_BUILD_DIR}/deps/llvm-3.9.0/install
 
 matrix:
@@ -76,6 +77,7 @@ install:
   ############################################################################
   - |
     if [[ -n "$CLANG_VERSION" && "${TRAVIS_OS_NAME}" == "linux" && "${STDLIB}" != "libstdc++" ]]; then
+      if [[ "$CLANG_VERSION" == “3.8” ]]; then LLVM_VERSION=“3.8.1”; fi
       if [[ "$CLANG_VERSION" == "3.9" ]]; then LLVM_VERSION="3.9.0"; fi
       LLVM_ROOT="${DEPS_DIR}/llvm-${LLVM_VERSION}"
       LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
