@@ -18,19 +18,19 @@ matrix:
       os: osx
       osx_image: xcode8
       compiler: clang
-    - env: CLANG_VERSION=3.9 BUILD_TYPE=Debug
+    - env: CLANG_VERSION=3.8 BUILD_TYPE=Debug
       os: linux
-      addons: &clang39
+      addons: &clang38
         apt:
           packages:
-            - clang-3.9
+            - clang-3.8
             - g++-5
           sources: &sources
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.9
-    - env: CLANG_VERSION=3.9 BUILD_TYPE=Release
+            - llvm-toolchain-precise-3.8
+    - env: CLANG_VERSION=3.8 BUILD_TYPE=Release
       os: linux
-      addons: *clang39
+      addons: *clang38
     - env: GCC_VERSION=5 BUILD_TYPE=Debug
       os: linux
       addons: &gcc5
