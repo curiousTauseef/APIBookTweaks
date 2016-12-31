@@ -6,7 +6,10 @@ sudo: false
 cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/deps/cmake
-    - ${TRAVIS_BUILD_DIR}/deps/llvm-3.8.0/install
+    - ${TRAVIS_BUILD_DIR}/deps/llvm-3.5.2/install
+    - ${TRAVIS_BUILD_DIR}/deps/llvm-3.6.2/install
+    - ${TRAVIS_BUILD_DIR}/deps/llvm-3.7.1/install
+    - ${TRAVIS_BUILD_DIR}/deps/llvm-3.8.1/install
     - ${TRAVIS_BUILD_DIR}/deps/llvm-3.9.0/install
 
 matrix:
@@ -19,6 +22,32 @@ matrix:
       os: osx
       osx_image: xcode8
       compiler: clang
+    - env: CLANG_VERSION=3.6 BUILD_TYPE=Debug
+      os: linux
+      addons: &clang36
+        apt:
+          packages:
+            - clang-3.6
+            - g++-5
+          sources: &sources
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.6
+    - env: CLANG_VERSION=3.6 BUILD_TYPE=Release
+      os: linux
+      addons: *clang36
+    - env: CLANG_VERSION=3.7 BUILD_TYPE=Debug
+      os: linux
+      addons: &clang37
+        apt:
+          packages:
+            - clang-3.7
+            - g++-5
+          sources: &sources
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+    - env: CLANG_VERSION=3.7 BUILD_TYPE=Release
+      os: linux
+      addons: *clang37
     - env: CLANG_VERSION=3.8 BUILD_TYPE=Debug
       os: linux
       addons: &clang38
@@ -41,15 +70,15 @@ matrix:
     - env: GCC_VERSION=5 BUILD_TYPE=Release
       os: linux
       addons: *gcc5
-#    - env: GCC_VERSION=6 BUILD_TYPE=Debug
-#      os: linux
-#      addons: &gcc6
-#        apt:
-#          packages: g++-6
-#          sources: *sources
-#    - env: GCC_VERSION=6 BUILD_TYPE=Release
-#      os: linux
-#      addons: *gcc6
+    - env: GCC_VERSION=6 BUILD_TYPE=Debug
+      os: linux
+      addons: &gcc6
+        apt:
+          packages: g++-6
+          sources: *sources
+    - env: GCC_VERSION=6 BUILD_TYPE=Release
+      os: linux
+      addons: *gcc6
 
 install:
   - if [[ -n "$CLANG_VERSION" ]]; then export CXX=clang++-$CLANG_VERSION CC=clang-$CLANG_VERSION; fi
@@ -77,7 +106,10 @@ install:
   ############################################################################
   - |
     if [[ -n "$CLANG_VERSION" && "${TRAVIS_OS_NAME}" == "linux" && "${STDLIB}" != "libstdc++" ]]; then
-      if [[ "$CLANG_VERSION" == “3.8” ]]; then LLVM_VERSION=“3.8.1”; fi
+      if [[ "$CLANG_VERSION" == "3.5" ]]; then LLVM_VERSION="3.5.2"; fi
+      if [[ "$CLANG_VERSION" == "3.6" ]]; then LLVM_VERSION="3.6.2"; fi
+      if [[ "$CLANG_VERSION" == "3.7" ]]; then LLVM_VERSION="3.7.1"; fi
+      if [[ "$CLANG_VERSION" == "3.8" ]]; then LLVM_VERSION="3.8.1"; fi
       if [[ "$CLANG_VERSION" == "3.9" ]]; then LLVM_VERSION="3.9.0"; fi
       LLVM_ROOT="${DEPS_DIR}/llvm-${LLVM_VERSION}"
       LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
