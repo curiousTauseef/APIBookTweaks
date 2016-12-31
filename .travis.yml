@@ -1,3 +1,5 @@
+# Based on https://github.com/ldionne/hana/blob/master/.travis.yml
+
 language: cpp
 sudo: false
 
@@ -8,27 +10,46 @@ cache:
 
 matrix:
   include:
-    -env: BUILD_TYPE=Debug
-     os: osx
-     osx_image: xcode 8
-     compiler: clang
+    - env: BUILD_TYPE=Debug
+      os: osx
+      osx_image: xcode8
+      compiler: clang
     - env: BUILD_TYPE=Release
       os: osx
       osx_image: xcode8
       compiler: clang
+    - env: CLANG_VERSION=3.9 BUILD_TYPE=Debug
+      os: linux
+      addons: &clang39
+        apt:
+          packages:
+            - clang-3.9
+            - g++-5
+          sources: &sources
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.9
     - env: CLANG_VERSION=3.9 BUILD_TYPE=Release
       os: linux
-      addons: *clang39      
+      addons: *clang39
     - env: GCC_VERSION=5 BUILD_TYPE=Debug
       os: linux
       addons: &gcc5
         apt:
           packages: g++-5
           sources: *sources
-   - env: GCC_VERSION=5 BUILD_TYPE=Release
+    - env: GCC_VERSION=5 BUILD_TYPE=Release
       os: linux
       addons: *gcc5
-      
+#    - env: GCC_VERSION=6 BUILD_TYPE=Debug
+#      os: linux
+#      addons: &gcc6
+#        apt:
+#          packages: g++-6
+#          sources: *sources
+#    - env: GCC_VERSION=6 BUILD_TYPE=Release
+#      os: linux
+#      addons: *gcc6
+
 install:
   - if [[ -n "$CLANG_VERSION" ]]; then export CXX=clang++-$CLANG_VERSION CC=clang-$CLANG_VERSION; fi
   - if [[ -n "$GCC_VERSION" ]]; then export CXX=g++-$GCC_VERSION CC=gcc-$GCC_VERSION; fi
@@ -36,10 +57,10 @@ install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - mkdir -p "${DEPS_DIR}" && cd "${DEPS_DIR}"
 
-############################################################################
-# Install a recent CMake (unless already installed on OS X)
-############################################################################
-- |
+  ############################################################################
+  # Install a recent CMake (unless already installed on OS X)
+  ############################################################################
+  - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
       if [[ -z "$(ls -A ${DEPS_DIR}/cmake/bin)" ]]; then
         CMAKE_URL="https://cmake.org/files/v3.6/cmake-3.6.2-Linux-x86_64.tar.gz"
@@ -50,17 +71,17 @@ install:
       if ! brew ls --version cmake &>/dev/null; then brew install cmake; fi
     fi
 
-############################################################################
-# [linux]: Install the right version of libc++
-############################################################################
+  ############################################################################
+  # [linux]: Install the right version of libc++
+  ############################################################################
   - |
     if [[ -n "$CLANG_VERSION" && "${TRAVIS_OS_NAME}" == "linux" && "${STDLIB}" != "libstdc++" ]]; then
-        if [[ "$CLANG_VERSION" == "3.9" ]]; then LLVM_VERSION="3.9.0"; fi
+      if [[ "$CLANG_VERSION" == "3.9" ]]; then LLVM_VERSION="3.9.0"; fi
       LLVM_ROOT="${DEPS_DIR}/llvm-${LLVM_VERSION}"
       LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
       LIBCXX_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxx-${LLVM_VERSION}.src.tar.xz"
       LIBCXXABI_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxxabi-${LLVM_VERSION}.src.tar.xz"
-            if [[ -z "$(ls -A ${LLVM_ROOT}/install/include)" ]]; then
+      if [[ -z "$(ls -A ${LLVM_ROOT}/install/include)" ]]; then
         mkdir -p "${LLVM_ROOT}" "${LLVM_ROOT}/build" "${LLVM_ROOT}/projects/libcxx" "${LLVM_ROOT}/projects/libcxxabi"
         travis_retry wget --quiet -O - "${LLVM_URL}" | tar --strip-components=1 -xJ -C "${LLVM_ROOT}"
         travis_retry wget --quiet -O - "${LIBCXX_URL}" | tar --strip-components=1 -xJ -C "${LLVM_ROOT}/projects/libcxx"
@@ -72,8 +93,8 @@ install:
       export CXXFLAGS="-I ${LLVM_ROOT}/install/include/c++/v1"
       export LDFLAGS="-L ${LLVM_ROOT}/install/lib -lc++ -lc++abi"
       export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LLVM_ROOT}/install/lib"
-    fi        
-      
+    fi
+
 before_script:
   - cd "${TRAVIS_BUILD_DIR}"
   - cmake . -Bbuild -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_C_COMPILER="$CC" -DCMAKE_BUILD_TYPE=$BUILD_TYPE
@@ -84,5 +105,4 @@ script:
   - ctest --output-on-failure -j$JOBS
 
 notifications:
-  #email: false
-  email: true
+  email: false
