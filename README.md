@@ -1,9 +1,11 @@
 # APIBookTweaks
 Tweaks to examples from  API Design for C++ book.
 
+[![Build Status](https://travis-ci.org/tlanc007/APIBookTweaks.svg?branch=tests)](https://travis-ci.org/tlanc007/APIBookTweaks)
+
 Tal Lancaster  
 Orig Dec 30, 2016  
-Last updated: Dec 31, 2016
+Last updated: Jan 02, 2016
 
 ## Table of Contents
 
