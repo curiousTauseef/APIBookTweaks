@@ -1,7 +1,6 @@
 # Declare the minimum version of cmake that we need
 cmake_minimum_required(VERSION 2.6)
 
-#set(CHAPTER 02_Qualities)
 set(EXAMPLE shared_pointer)
 set(SRC_PATH ${TOP_SRC_PATH}/${EXAMPLE})
 
