@@ -11,3 +11,6 @@ set(sources
 
 # Build the executable
 add_executable(callbackInstanceTest ${sources})
+
+add_test(NAME runtestprog
+    COMMAND callbackInstanceTest )

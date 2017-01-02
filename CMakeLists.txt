@@ -7,6 +7,8 @@ project(APIBook)
 add_definitions(-std=c++11)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
+enable_testing()
+
 #Subdirdirectories to build
 add_subdirectory(02_Qualities)
 

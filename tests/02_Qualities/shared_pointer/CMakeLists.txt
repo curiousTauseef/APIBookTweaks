@@ -9,3 +9,7 @@ set(sources
 
 # Build the executable
 add_executable(sharedPointerTest ${sources})
+
+add_test(NAME runtestprog
+    COMMAND sharedPointerTest )
+
