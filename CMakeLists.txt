@@ -9,3 +9,6 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 #Subdirdirectories to build
 add_subdirectory(02_Qualities)
+
+# add tests (should only exist on tests branch)
+add_subdirectory(tests)
