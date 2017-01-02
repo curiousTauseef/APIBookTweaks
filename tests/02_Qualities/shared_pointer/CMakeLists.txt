@@ -1,5 +1,6 @@
 set(EXAMPLE shared_pointer)
 set(SRC_PATH ${TOP_SRC_PATH}/${EXAMPLE})
+set(TEST_NAME sharedPointerTest)
 
 include_directories (../../include ${SRC_PATH})
 
@@ -8,8 +9,8 @@ set(sources
    ${SRC_PATH}/myobject.cpp)
 
 # Build the executable
-add_executable(sharedPointerTest ${sources})
+add_executable(${TEST_NAME} ${sources})
 
-add_test(NAME runtestprog
-    COMMAND sharedPointerTest )
+add_test(NAME ${TEST_NAME}
+    COMMAND ${TEST_NAME} )
 
