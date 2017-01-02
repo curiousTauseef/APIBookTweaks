@@ -1,6 +1,3 @@
-# Declare the minimum version of cmake that we need
-cmake_minimum_required(VERSION 2.6)
-
 set(EXAMPLE callback_instance)
 set(SRC_PATH ${TOP_SRC_PATH}/${EXAMPLE})
 
