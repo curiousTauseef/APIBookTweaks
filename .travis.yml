@@ -3,6 +3,10 @@
 language: cpp
 sudo: false
 
+branches:
+  only:
+    - tests
+
 cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/deps/cmake
@@ -12,10 +16,6 @@ cache:
 matrix:
   include:
     - env: BUILD_TYPE=Debug
-      os: osx
-      osx_image: xcode8
-      compiler: clang
-    - env: BUILD_TYPE=Release
       os: osx
       osx_image: xcode8
       compiler: clang
@@ -29,18 +29,12 @@ matrix:
           sources: &sources
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.8
-    - env: CLANG_VERSION=3.8 BUILD_TYPE=Release
-      os: linux
-      addons: *clang38
     - env: GCC_VERSION=5 BUILD_TYPE=Debug
       os: linux
       addons: &gcc5
         apt:
           packages: g++-5
           sources: *sources
-    - env: GCC_VERSION=5 BUILD_TYPE=Release
-      os: linux
-      addons: *gcc5
 
 install:
   - if [[ -n "$CLANG_VERSION" ]]; then export CXX=clang++-$CLANG_VERSION CC=clang-$CLANG_VERSION; fi
@@ -98,7 +92,7 @@ before_script:
 
 script:
   - cd build
-  - ctest --output-on-failure -j$JOBS
+  - ctest -V --output-on-failure -j$JOBS
 
 notifications:
   email: false
