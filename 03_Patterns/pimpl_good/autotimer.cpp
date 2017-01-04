@@ -10,6 +10,8 @@
 ///
 
 /**
+01/03/17 -- Tal
+
  - using brace-initializer
  - replaced literals with constexpr.
  - replaced new with make_unique: see Tweaks_Explained.md for reason
