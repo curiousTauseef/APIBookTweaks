@@ -35,10 +35,10 @@ class ModuleA
 {
 public:
     /// A static function that lets you call a member function
-	static void StaticWrapper (void *obj, const std::string &name, void *data);
+    static void StaticWrapper (void *obj, const std::string &name, void *data);
 
     /// The member function callback
-	void InstanceMethod (const std::string &name, void *data);
+    void InstanceMethod (const std::string &name, void *data);
 };
 
 }

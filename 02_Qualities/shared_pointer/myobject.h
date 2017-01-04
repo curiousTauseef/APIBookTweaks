@@ -43,9 +43,9 @@ using MyObjectPtr = std::shared_ptr<class MyObject>;
 class MyObject
 {
 public:
-	/// Create a new (reference-counted) instance of MyObject
-	static MyObjectPtr CreateInstance (int id);
-	~MyObject();
+    /// Create a new (reference-counted) instance of MyObject
+    static MyObjectPtr CreateInstance (int id);
+    ~MyObject();
 
     class PrivateCtor {
     private:
@@ -57,7 +57,7 @@ public:
 
 private:
     
-	int mID;
+    int mID;
 };
 
 }

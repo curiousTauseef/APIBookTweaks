@@ -29,18 +29,18 @@ ModuleB::ModuleB() :
 
 void ModuleB::SetCallback(void *obj, CallbackType cb, void *data)
 {
-	mObject = obj;
-	mCallback = cb;
-	mClosure = data;
+    mObject = obj;
+    mCallback = cb;
+    mClosure = data;
 }
 
 void ModuleB::DoAction()
 {
-	if (mCallback)
-	{
+    if (mCallback)
+    {
         // (*mCallback) (mObject, "Hello World", mClosure); // dereference ptr-2-function
-		mCallback (mObject, "Hello World", mClosure);
-	}
+        mCallback (mObject, "Hello World", mClosure);
+    }
 }
 
 }

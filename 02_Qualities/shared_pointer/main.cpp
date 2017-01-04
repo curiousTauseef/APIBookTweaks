@@ -24,18 +24,18 @@ int main(int argc, char *argv[])
 {    
     std::cout << "> main()" << "\n";
 
-	{
-		apibook::MyObjectPtr ptr;
+    {
+        apibook::MyObjectPtr ptr;
 
-		// create a new instance of MyObject
+        // create a new instance of MyObject
         std::cout << "> CreateInstance(1)" << "\n";
-		ptr = apibook::MyObject::CreateInstance(1);
+        ptr = apibook::MyObject::CreateInstance(1);
 
-		// create another instance of MyObject
+        // create another instance of MyObject
         std::cout << "> CreateInstance(2)" << "\n";
-		ptr = apibook::MyObject::CreateInstance(2);
-	}
-	// both instances get deleted when they go out of scope
+        ptr = apibook::MyObject::CreateInstance(2);
+    }
+    // both instances get deleted when they go out of scope
 
     std::cout << "> exit()" << "\n";
 }

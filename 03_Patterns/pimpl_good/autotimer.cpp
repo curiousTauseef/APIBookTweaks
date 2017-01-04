@@ -36,27 +36,27 @@ public:
     mName {name}
     { }
     
-	/// Return how long the object has been alive
-	double GetElapsed() const
-	{
+    /// Return how long the object has been alive
+    double GetElapsed() const
+    {
 #ifdef _WIN32
         constexpr auto Resolution {1e3};
-		return (GetTickCount() - mStartTime) / Resolution;
+        return (GetTickCount() - mStartTime) / Resolution;
 #else
         constexpr auto Resolution {1e6};
-		struct timeval end_time;
-		gettimeofday (&end_time, NULL);
+        struct timeval end_time;
+        gettimeofday (&end_time, NULL);
         double t1 {mStartTime.tv_usec / Resolution + mStartTime.tv_sec };
         double t2 {end_time.tv_usec / Resolution + end_time.tv_sec };
-		return t2 - t1;
+        return t2 - t1;
 #endif
-	}
+    }
 
-	std::string mName;
+    std::string mName;
 #ifdef _WIN32
-	DWORD mStartTime;
+    DWORD mStartTime;
 #else
-	struct timeval mStartTime;
+    struct timeval mStartTime;
 #endif
 };
 
@@ -65,16 +65,16 @@ AutoTimer::AutoTimer(const std::string &name) :
 {
 
 #ifdef _WIN32
-	mImpl->mStartTime = GetTickCount();
+    mImpl->mStartTime = GetTickCount();
 #else
-	gettimeofday(&mImpl->mStartTime, NULL);
+    gettimeofday(&mImpl->mStartTime, NULL);
 #endif
 }
 
 AutoTimer::~AutoTimer()
 {
-	std::cout << mImpl->mName << ": took " << mImpl->GetElapsed()
-			  << " secs" << std::endl;
+    std::cout << mImpl->mName << ": took " << mImpl->GetElapsed()
+              << " secs" << std::endl;
 }
 
 }
