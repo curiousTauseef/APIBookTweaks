@@ -13,7 +13,7 @@
  More modern compilers will automatically dereference function pointers.
  -See moduleb.cpp
  -switched to "using" rather than typedef
- -switched to brace-init-list
+ -switched to brace-init-list: see Tweak_Explainations.md
  -nullptr from NULL
  **/
 
