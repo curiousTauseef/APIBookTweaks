@@ -25,7 +25,7 @@ namespace apibook {
 void ModuleA::StaticWrapper(void *obj, const std::string &name, void *data)
 {
     ModuleA *self {static_cast<ModuleA *>(obj) };
-	self->InstanceMethod (name, data);
+    self->InstanceMethod (name, data);
 }
 
 void ModuleA::InstanceMethod (const std::string &name, void *data)

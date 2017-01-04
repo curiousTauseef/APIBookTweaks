@@ -32,14 +32,14 @@ namespace apibook {
 class AutoTimer
 {
 public:
-	/// Create a new timer object with a human-readable name
-	explicit AutoTimer(const std::string &name);
-	/// On destruction, the timer reports how long it was alive
-	~AutoTimer();
+    /// Create a new timer object with a human-readable name
+    explicit AutoTimer(const std::string &name);
+    /// On destruction, the timer reports how long it was alive
+    ~AutoTimer();
 
 private:
     class Impl;
-	std::unique_ptr<Impl> mImpl;
+    std::unique_ptr<Impl> mImpl;
 };
 
 }

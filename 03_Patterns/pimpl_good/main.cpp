@@ -17,13 +17,13 @@ using std::endl;
 
 int main(int, char **)
 {
-	apibook::AutoTimer timer("MyTimer");
+    apibook::AutoTimer timer("MyTimer");
 
-	for (int i = 0; i < 1000; ++i)
-	{
-		cout << ".";
-	}
-	cout << endl;
+    for (int i = 0; i < 1000; ++i)
+    {
+        cout << ".";
+    }
+    cout << endl;
 
-	return 0;
+    return 0;
 }

@@ -32,20 +32,20 @@ namespace apibook {
 class ModuleB
 {
 public:
-	/// A type for the function signature that is accepted as a callback
+    /// A type for the function signature that is accepted as a callback
     using CallbackType = void (*) (void *obj, const std::string& name, void* data);
 
-	ModuleB();
+    ModuleB();
 
-	/// Set the callback function. Only one callback can be registered.
-	void SetCallback (void *obj, CallbackType cb, void *data);
-	/// Call the callback function.
-	void DoAction ();
+    /// Set the callback function. Only one callback can be registered.
+    void SetCallback (void *obj, CallbackType cb, void *data);
+    /// Call the callback function.
+    void DoAction ();
 
 private:
-	void         *mObject;
-	CallbackType mCallback;
-	void         *mClosure;
+    void         *mObject;
+    CallbackType mCallback;
+    void         *mClosure;
 };
 
 }
