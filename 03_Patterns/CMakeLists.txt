@@ -1,5 +1,5 @@
 # Declare the minimum version of cmake that we need
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.2)
 
 add_definitions(-std=c++14)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
