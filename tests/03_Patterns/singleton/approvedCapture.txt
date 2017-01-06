@@ -1,0 +1,3 @@
+main() called
+Singleton created
+Singleton destroyed
