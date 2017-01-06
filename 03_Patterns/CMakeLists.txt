@@ -6,4 +6,5 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 # Specify the subdirectories to build
 add_subdirectory(pimpl_good)
+add_subdirectory(singleton)
 
