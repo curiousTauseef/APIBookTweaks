@@ -1,10 +1,10 @@
 # Tweak Explanations
 ## Table of Contents
 <a href="#summary">Summary</a><br>
-<a href="#brace_init">Brace-init-list</a><br>
-<a href="#make_shared">Make Shared</a><br>
+<a href="#braceinit">Brace-init-list</a><br>
+<a href="#makeshared">Make Shared</a><br>
 <a href="#using">Using</a><br>
-<a href="#equals_delete">=delete</a><br>
+<a href="#equalsdelete">=delete</a><br>
 
 
 <a class="anchor" href="#summary"></a>
@@ -13,8 +13,8 @@ The following is a synopsis of the tweaks applied and the reasons they were used
 
 As mentioned in the top level Readme.md, my intent with the changes is to make better use of modern C++.
 
-<a class="anchor" href="#brace_init"></a>
-##Brace-init-list
+<a class="anchor" href="#braceinit"></a>
+## Brace-init-list
 *Technically, this form of direct-list-initialization.*
 
 I prefer to use what is known as uniform initialization, that was introduced in C++11.
@@ -75,7 +75,7 @@ int ary[] = {1, 2, 3}; // copy list initialization
 
 As shown earlier, C++11 introduced the uniform initialization to replace forms 1 and 2.
 
-<a class="anchor" href="#make_shared"></a>
+<a class="anchor" href="#makeshared"></a>
 ## Make Shared
 The smart pointers, `std::shared_ptr` and `std::unique_ptr`, both have corresponding calls for making them, `std::make_shared()` and `std::make_unique()` respectfully. (Technically 'std::make_unique()' didn't come until C++14.  But one can copy over the implementation for it, if you still only have C++11.)
 
@@ -105,7 +105,7 @@ using MyObjectPtr = std::shared_ptr<class MyObject>;
 
 The feels cleaner.  Sort of like an assignment.  Also `using` can be templated and `typedef` can't.
 
-<a class="anchor" href="#summary"></a>
+<a class="anchor" href="#equalsdelete"></a>
 ## =delete
 Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
 
