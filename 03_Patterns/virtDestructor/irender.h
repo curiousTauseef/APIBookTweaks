@@ -1,11 +1,13 @@
 /**
- irender.cpp
+ irender.h
  
  Example of what can happen when a base class' destructor isn't virtual.
  NOTE: This example wasn't part of the APIBOOK.com example code but much of the
  code was listed in the book.  I just exapanded it a but so it would do something.
  -- 01/06/17 Tal
 **/
+
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -43,14 +45,5 @@ public:
     void Render () override {std::cout << "RayTracer::Render()\n"; }
 };
 
-int main ()
-{
-    {
-        std::cout << "Non-virtual dtor example\n";
-        std::unique_ptr<IRendererNonVirtDtor> r1 {std::make_unique <RayTracerNonVirtDtor> () };
-    }
-    {
-        std::cout << "\nVirtual dtor example\n";
-        std::unique_ptr<IRenderer> r2 {std::make_unique <RayTracer> () };
-    }
-}
+
+        
