@@ -1,7 +1,7 @@
 # Tweak Explanations
 ## Table of Contents
 * [Summary](#summary)
-* [brace-init-list](#brace-init-list)
+* [brace-init-list](#braceinitlist)
 * [make_shared](#makeshared)
 * [using](#using)
 * [=delete](#equalsdelete)
