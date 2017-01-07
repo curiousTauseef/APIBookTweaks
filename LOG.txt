@@ -1,6 +1,0 @@
-
-12/31/16
-Added cmake support and updated README.md
-
-12/30/16
-Created APIBookTweaks repository.  So far it only contains some examples from chapter 2.
