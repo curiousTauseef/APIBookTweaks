@@ -4,6 +4,8 @@
 <a href="#brace_init">Brace-init-list</a><br>
 <a href="#make_shared">Make Shared</a><br>
 <a href="#using">Using</a><br>
+<a href="#equals_delete">=delete</a><br>
+
 
 <a class="anchor" href="#summary"></a>
 ##Summary
@@ -102,3 +104,20 @@ using MyObjectPtr = std::shared_ptr<class MyObject>;
 ```  
 
 The feels cleaner.  Sort of like an assignment.  Also `using` can be templated and `typedef` can't.
+
+<a class="anchor" href="#summary"></a>
+## =delete
+Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
+
+Prior to C++11, if one didn't want the compiler to these special methods, one would have to define them manually and make them private.   Now, one can declare this methods with the =delete.
+
+```
+class A {
+public:
+    A (constA& rhs) = delete;
+    ...
+};
+```
+In the above example, the copy constructor for A is deleted and the compiler will give an error if the code attempts to use it.
+
+NOTE:  = delete can be applied to any method and not just the special methods.
