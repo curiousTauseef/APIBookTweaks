@@ -1,20 +1,18 @@
 # Tweak Explanations
 ## Table of Contents
-<a href="#summary">Summary</a><br>
-<a href="#braceinit">Brace-init-list</a><br>
-<a href="#makeshared">Make Shared</a><br>
-<a href="#using">Using</a><br>
-<a href="#equalsdelete">=delete</a><br>
+* [Summary](#summary)
+* [Brace init list](#brace-init-list)
+* [make_shared](#make_shared)
+* [Using](#using)
+* [=delete](#=delete)
 
 
-<a class="anchor" href="#summary"></a>
-##Summary
+## Summary
 The following is a synopsis of the tweaks applied and the reasons they were used.
 
 As mentioned in the top level Readme.md, my intent with the changes is to make better use of modern C++.
 
-<a class="anchor" href="#braceinit"></a>
-## Brace-init-list
+## Brace init list
 *Technically, this form of direct-list-initialization.*
 
 I prefer to use what is known as uniform initialization, that was introduced in C++11.
@@ -94,7 +92,6 @@ See [Sutter's Mill #89](https://herbsutter.com/2013/05/29/gotw-89-solution-smart
 
 Also the `make_*` can be tricky to work with if the class in question only has private constructors. For example, say the class is a factory.  A work around, would be to do what I did for the [Ch2: shared_pointer example](https://github.com/tlanc007/APIBookTweaks/tree/master/02_Qualities/shared_pointer).
 
-<a class="anchor" href="#using"></a>
 ## Using
 C++11 introduced a new use the `using` keyword.  It can be used as an alias and for me replaces the need to use `typedef`.  I find it easier to read and feels more direct.
 
@@ -105,7 +102,6 @@ using MyObjectPtr = std::shared_ptr<class MyObject>;
 
 The feels cleaner.  Sort of like an assignment.  Also `using` can be templated and `typedef` can't.
 
-<a class="anchor" href="#equalsdelete"></a>
 ## =delete
 Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
 
