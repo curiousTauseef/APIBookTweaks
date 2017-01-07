@@ -8,4 +8,5 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 add_subdirectory(pimpl_good)
 add_subdirectory(singleton)
 add_subdirectory(virtDestructor)
+add_subdirectory(factory_simple)
 
