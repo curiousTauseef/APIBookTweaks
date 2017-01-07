@@ -12,9 +12,9 @@
 /**
 01/03/17 -- Tal
 
- - using brace-initializer
- - replaced literals with constexpr.
- - replaced new with make_unique: see Tweaks_Explained.md for reason
+ - using brace-initializer (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#braceinitlist)
+ - replaced literals with constexpr. (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#constexpr)
+ - replaced new with make_unique: see Tweaks_Explained.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#makeshared)
  - added Impl constructor that takes a string so AutoTimer ctor can take advantage of it.
  **/
 #include "autotimer.h"

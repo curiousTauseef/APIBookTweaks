@@ -12,9 +12,9 @@
 /**
  More modern compilers will automatically dereference function pointers.
  -See moduleb.cpp
- -switched to "using" rather than typedef
- -switched to brace-init-list: see Tweak_Explainations.md
- -nullptr from NULL
+ -switched to "using" rather than typedef ((https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#using)
+ -switched to brace-init-list: see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#braceinitlist)
+ -switched to nullptr from NULL
  **/
 
 #include "modulea.h"
