@@ -2,7 +2,9 @@
 ## Table of Contents
 * [Summary](#summary)
 * [brace-init-list](#braceinitlist)
-* [make_shared](#makeshared)
+* [constexpr](#constexpr)
+* [enum class](#enumclass)
+* [make_shared/make_unique](#makeshared)
 * [using](#using)
 * [=delete](#equalsdelete)
 
@@ -73,7 +75,49 @@ int ary[] = {1, 2, 3}; // copy list initialization
 
 As shown earlier, C++11 introduced the uniform initialization to replace forms 1 and 2.
 
-## make_shared <a name="makeshared" />
+## constexpr
+As a rule, I try to avoid "magic values".  That is to say, having literal values without any context.  Instead, I will make such values a `constexpr`.
+
+Giving the values a name makes one's intent clearer when the value is used.  Also, the value needs to be changed at some point, there is only one place this needs to happen.
+
+So why `constexpr` and not just `const`?
+The later form only tells the compiler that this variable doesn't change.  While the former qualifier tells the compiler that this expression results in a compile time constant value.  This gives the compiler the to option to evaluate and combine the result of constexpr variables for a given statement all at compile time.
+ 
+## enum class
+`enum class` vs `enum`
+`enum` is the original form of enumeration.  However, there are cases where these can lead to surprises and subtle bugs due to these surprises.  One of the issues relating to `enum` is that they typically pollute the global namespace (or at least whatever namespace they are defined in).
+
+`enum class` was introduced in C++11 and addresses many of the issues that plagued the use of original `enum`.  For example, an `enum class` is fully scopped.
+
+I tend to gravitate towards the newer `enum class` form.  Even though there are some quirks with the newer form.  For example, one can't do straight comparison against an ordinal value and an `enum class` some casting is needed to make it happen.
+
+```
+enum class Colors {
+    black = 0,
+    red,
+    white
+};
+
+Colors c{Colors::red};
+if (c == 1) // error
+```
+
+One could have a helper function like:
+
+```
+template <typename E>
+constexpr int enumClToInt (E e) {
+    return static_cast<int> (e);
+}
+```
+
+Then the ordinal test could be done as:
+
+```
+if (enumClToInt (c) == 1) ... // ok
+```
+
+## make\_shared make\_unique <a name="makeshared" />
 The smart pointers, `std::shared_ptr` and `std::unique_ptr`, both have corresponding calls for making them, `std::make_shared()` and `std::make_unique()` respectfully. (Technically 'std::make_unique()' didn't come until C++14.  But one can copy over the implementation for it, if you still only have C++11.)
 
 So why should one consider using these over just calling `new`?
