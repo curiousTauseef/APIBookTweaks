@@ -5,7 +5,7 @@ Tweaks to examples from  API Design for C++ book.
 
 Tal Lancaster  
 Orig Dec 30, 2016  
-Last updated: Jan 02, 2016
+Last updated: Jan 06, 2016
 
 ## Table of Contents
 
@@ -28,9 +28,9 @@ The expectation is that one would have both versions of the example handy and us
 
 <a class="anchor" href="#background"></a>
 ## Status
-Currently the tweaked examples are only from chapter 2.
-
 I am still reading the book and will be adding examples as I come across them.
+
+Refer to the [Log Wiki](https://github.com/tlanc007/APIBookTweaks/wiki/Logfile) page for updates.
 
 <a class="anchor" href="#building"></a>
 ## Building
