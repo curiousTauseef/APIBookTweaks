@@ -20,12 +20,12 @@
 class IRenderer
 {
 public:
-	virtual ~IRenderer() {}
-	virtual bool LoadScene(const std::string &filename) = 0;
-	virtual void SetViewportSize(int w, int h) = 0;
-	virtual void SetCameraPos(double x, double y, double z) = 0;
-	virtual void SetLookAt(double x, double y, double z) = 0;
-	virtual void Render() = 0;
+    virtual ~IRenderer() {}
+    virtual bool LoadScene(const std::string &filename) = 0;
+    virtual void SetViewportSize(int w, int h) = 0;
+    virtual void SetCameraPos(double x, double y, double z) = 0;
+    virtual void SetLookAt(double x, double y, double z) = 0;
+    virtual void Render() = 0;
 };
 
 #endif

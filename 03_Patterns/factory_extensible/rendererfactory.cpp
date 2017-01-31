@@ -9,31 +9,38 @@
 /// See http://APIBook.com/ for the latest version.
 ///
 
-#include "rendererfactory.h"
+/**
+ 1/30/17 -- Tal
+ -- using nullptr instead of NULL
+ -- switched to auto for mRenders.find()
+ **/
+
 #include <iostream>
+
+#include "rendererfactory.h"
 
 // instantiate the static variable in RendererFactory
 RendererFactory::CallbackMap RendererFactory::mRenderers;
 
 void RendererFactory::RegisterRenderer(const std::string &type,
-									   CreateCallback cb)
+                                       CreateCallback cb)
 {
-	mRenderers[type] = cb;
+    mRenderers[type] = cb;
 }
 
 void RendererFactory::UnregisterRenderer(const std::string &type)
 {
-	mRenderers.erase(type);
+    mRenderers.erase(type);
 }
 
 IRenderer *RendererFactory::CreateRenderer(const std::string &type)
 {
-	CallbackMap::iterator it = mRenderers.find(type);
-	if (it != mRenderers.end())
-	{
-		// call the creation callback to construct this derived type
-		return (it->second)();
-	}
+    auto found {mRenderers.find(type) };
+    if (found != std::end (mRenderers) )
+    {
+        // call the creation callback to construct this derived type
+        return (found->second)();
+    }
 
-	return NULL;
+    return nullptr;
 }

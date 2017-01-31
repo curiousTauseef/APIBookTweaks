@@ -9,12 +9,22 @@
 /// See http://APIBook.com/ for the latest version.
 ///
 
+/**
+ 1/30/17 -- Tal
+ -- switched to using alias from typedef
+    for CreateCallback and CallbackMap
+ -- using unordered_map instead of map
+   insertions can be faster as sorting isn't important.
+ 
+ **/
+
 #ifndef RENDERERFACTORY_H
 #define RENDERERFACTORY_H
 
-#include "renderer.h"
 #include <string>
-#include <map>
+#include <unordered_map>
+
+#include "renderer.h"
 
 ///
 /// A factory object that creates instances of different
@@ -24,21 +34,21 @@
 class RendererFactory
 {
 public:
-	/// The type for the callback that creates an IRenderer instance
-	typedef IRenderer *(*CreateCallback)();
+    /// The type for the callback that creates an IRenderer instance
+    using CreateCallback = IRenderer *(*) ();
 
-	/// Add a new 3D renderer to the system
-	static void RegisterRenderer(const std::string &type,
-								 CreateCallback cb);
-	/// Remove an existing 3D renderer from the system
-	static void UnregisterRenderer(const std::string &type);
+    /// Add a new 3D renderer to the system
+    static void RegisterRenderer(const std::string &type,
+                                 CreateCallback cb);
+    /// Remove an existing 3D renderer from the system
+    static void UnregisterRenderer(const std::string &type);
 
-	/// Create an instance of a named 3D renderer
-	static IRenderer *CreateRenderer(const std::string &type);
+    /// Create an instance of a named 3D renderer
+    static IRenderer *CreateRenderer(const std::string &type);
 
 private:
-	typedef std::map<std::string, CreateCallback> CallbackMap;
-	static CallbackMap mRenderers;
+    using CallbackMap = std::unordered_map <std::string, CreateCallback>;
+    static CallbackMap mRenderers;
 };
 
 #endif
