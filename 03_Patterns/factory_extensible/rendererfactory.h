@@ -15,6 +15,8 @@
     for CreateCallback and CallbackMap
  -- using unordered_map instead of map
    insertions can be faster as sorting isn't important.
+ -- switched to unique_ptr/make_unique rather than needing to
+   use new() and remembering to call delete.
  
  **/
 
@@ -22,6 +24,7 @@
 #define RENDERERFACTORY_H
 
 #include <string>
+#include <memory>
 #include <unordered_map>
 
 #include "renderer.h"
@@ -35,8 +38,9 @@ class RendererFactory
 {
 public:
     /// The type for the callback that creates an IRenderer instance
-    using CreateCallback = IRenderer *(*) ();
-
+    using UniqueIRendererPtr = std::unique_ptr <IRenderer>;
+    using CreateCallback = UniqueIRendererPtr (*) ();
+    
     /// Add a new 3D renderer to the system
     static void RegisterRenderer(const std::string &type,
                                  CreateCallback cb);
@@ -44,7 +48,7 @@ public:
     static void UnregisterRenderer(const std::string &type);
 
     /// Create an instance of a named 3D renderer
-    static IRenderer *CreateRenderer(const std::string &type);
+    static UniqueIRendererPtr CreateRenderer(const std::string &type);
 
 private:
     using CallbackMap = std::unordered_map <std::string, CreateCallback>;

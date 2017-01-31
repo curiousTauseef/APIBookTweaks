@@ -13,7 +13,8 @@
  1/30/17 -- Tal
  -- replaced std::endl with NewLine (NL) char.
    Generally it is inefficent to be flushing the buffer, unless you need to.
- 
+ -- switched to unique_ptr/make_unique rather than needing to
+   use new() and remembering to call delete.
  **/
 #include "rendererfactory.h"
 #include <iostream>
@@ -30,8 +31,8 @@ public:
     void SetViewportSize(int w, int h) {}
     void SetCameraPos(double x, double y, double z) {}
     void SetLookAt(double x, double y, double z) {}
-    void Render() { cout << "OpenGL Render" << NL; }
-    static IRenderer *Create() { return new OpenGLRenderer; }
+    void Render () { cout << "OpenGL Render" << NL; }
+    static RendererFactory::UniqueIRendererPtr Create () { return std::make_unique <OpenGLRenderer> (); }
 };
 
 /// A DirectX-based 3D renderer
@@ -42,8 +43,8 @@ public:
     void SetViewportSize(int w, int h) {}
     void SetCameraPos(double x, double y, double z) {}
     void SetLookAt(double x, double y, double z) {}
-    void Render() { cout << "DirectX Render" << NL; }
-    static IRenderer *Create() { return new DirectXRenderer; }
+    void Render () { cout << "DirectX Render" << NL; }
+    static RendererFactory::UniqueIRendererPtr Create () { return std::make_unique <DirectXRenderer> (); }
 };
 
 /// A Mesa-based software 3D renderer
@@ -55,26 +56,23 @@ public:
     void SetCameraPos(double x, double y, double z) {}
     void SetLookAt(double x, double y, double z) {}
     void Render() { cout << "Mesa Render" << NL; }
-    static IRenderer *Create() { return new MesaRenderer; }
+    static RendererFactory::UniqueIRendererPtr Create () { return std::make_unique <MesaRenderer> (); }
 };
-
 
 int main(int, char **)
 {
     // register the various 3D renderers with the factory object
-    RendererFactory::RegisterRenderer("opengl", OpenGLRenderer::Create);
-    RendererFactory::RegisterRenderer("directx", DirectXRenderer::Create);
-    RendererFactory::RegisterRenderer("mesa", MesaRenderer::Create);
-
+    RendererFactory::RegisterRenderer ("opengl", OpenGLRenderer::Create);
+    RendererFactory::RegisterRenderer ("directx", DirectXRenderer::Create);
+    RendererFactory::RegisterRenderer ("mesa", MesaRenderer::Create);
+    
     // create an OpenGL renderer
-    IRenderer *ogl = RendererFactory::CreateRenderer("opengl");
+    RendererFactory::UniqueIRendererPtr ogl {RendererFactory::CreateRenderer("opengl") };
     ogl->Render();
-    delete ogl;
 
     // create a Mesa software renderer
-    IRenderer *mesa = RendererFactory::CreateRenderer("mesa");
+    RendererFactory::UniqueIRendererPtr mesa {RendererFactory::CreateRenderer("mesa") };
     mesa->Render();
-    delete mesa;
 
     // unregister the Mesa renderer
     RendererFactory::UnregisterRenderer("mesa");
@@ -84,5 +82,4 @@ int main(int, char **)
         cout << "Mesa renderer unregistered" << NL;
     }
 
-    return 0;
 }

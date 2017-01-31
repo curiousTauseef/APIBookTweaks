@@ -13,6 +13,9 @@
  1/30/17 -- Tal
  -- using nullptr instead of NULL
  -- switched to auto for mRenders.find()
+ -- switched to unique_ptr/make_unique rather than needing to
+   use new() and remembering to call delete.
+ 
  **/
 
 #include <iostream>
@@ -33,7 +36,7 @@ void RendererFactory::UnregisterRenderer(const std::string &type)
     mRenderers.erase(type);
 }
 
-IRenderer *RendererFactory::CreateRenderer(const std::string &type)
+RendererFactory::UniqueIRendererPtr RendererFactory::CreateRenderer (const std::string &type)
 {
     auto found {mRenderers.find(type) };
     if (found != std::end (mRenderers) )
