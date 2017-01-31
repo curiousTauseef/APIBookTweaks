@@ -13,8 +13,8 @@
  12/30/16 -- Tal
  I opted for:
  -std::shared_ptr instead of boost
- -using make_shared instead of new: see Tweak_Explainations.md
- -using "using" rather than typedef
+ -using make_shared instead of new: see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#makeshared)
+ -using "using" rather than typedef: see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#using)
  **/
 
 #ifndef MYOBJECT_H

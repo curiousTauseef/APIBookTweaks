@@ -12,7 +12,7 @@
 /**
  1/5/17 -- Tal
  - see singleton.h: using = delete to remove ctor and assignment
- - swtiched to brace-init
+ - swtiched to brace-init https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#braceinitlist)
  **/
  
 #include "singleton.h"

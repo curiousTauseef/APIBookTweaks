@@ -13,6 +13,7 @@
  01/06/17 -- tal
  - switched unique_ptrs so don't have to manually delete
  - using enum rather than string to specify factory class
+ * refer to: (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#enumclass)
  - need to qualify with namespace apibook
  **/
 

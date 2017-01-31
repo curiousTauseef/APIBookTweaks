@@ -9,4 +9,5 @@ add_subdirectory(pimpl_good)
 add_subdirectory(singleton)
 add_subdirectory(virtDestructor)
 add_subdirectory(factory_simple)
+add_subdirectory(factory_extensible)
 

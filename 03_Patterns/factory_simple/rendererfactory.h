@@ -18,6 +18,8 @@
     * "A good API ... should also be difficult to misuse" -- Martin Reddy
        by doing this we are taking advantage of C++ strong type system by
        disallowing bad values.
+ * For why enum class see: (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#enumclass)
+
  After adding the enum, it seemed appropriate to wrap the example in a namespace.
     * This would be especially true if using old-style enums as they have the issue
        of polluting the global namespace.  Although enum class doesn't pollute the global

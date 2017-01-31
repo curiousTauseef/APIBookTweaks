@@ -1,20 +1,20 @@
 # Tweak Explanations
 ## Table of Contents
-<a href="#summary">Summary</a><br>
-<a href="#brace_init">Brace-init-list</a><br>
-<a href="#make_shared">Make Shared</a><br>
-<a href="#using">Using</a><br>
-<a href="#equals_delete">=delete</a><br>
+* [Summary](#summary)
+* [brace-init-list](#braceinitlist)
+* [constexpr](#constexpr)
+* [enum class](#enumclass)
+* [make_shared/make_unique](#makeshared)
+* [using](#using)
+* [=delete](#equalsdelete)
 
 
-<a class="anchor" href="#summary"></a>
-##Summary
+## Summary
 The following is a synopsis of the tweaks applied and the reasons they were used.
 
 As mentioned in the top level Readme.md, my intent with the changes is to make better use of modern C++.
 
-<a class="anchor" href="#brace_init"></a>
-##Brace-init-list
+## brace-init-list <a name="braceinitlist" />
 *Technically, this form of direct-list-initialization.*
 
 I prefer to use what is known as uniform initialization, that was introduced in C++11.
@@ -75,8 +75,49 @@ int ary[] = {1, 2, 3}; // copy list initialization
 
 As shown earlier, C++11 introduced the uniform initialization to replace forms 1 and 2.
 
-<a class="anchor" href="#make_shared"></a>
-## Make Shared
+## constexpr
+As a rule, I try to avoid "magic values".  That is to say, having literal values without any context.  Instead, I will make such values a `constexpr`.
+
+Giving the values a name makes one's intent clearer when the value is used.  Also, the value needs to be changed at some point, there is only one place this needs to happen.
+
+So why `constexpr` and not just `const`?
+The later form only tells the compiler that this variable doesn't change.  While the former qualifier tells the compiler that this expression results in a compile time constant value.  This gives the compiler the to option to evaluate and combine the result of constexpr variables for a given statement all at compile time.
+ 
+## enum class
+`enum class` vs `enum`
+`enum` is the original form of enumeration.  However, there are cases where these can lead to surprises and subtle bugs due to these surprises.  One of the issues relating to `enum` is that they typically pollute the global namespace (or at least whatever namespace they are defined in).
+
+`enum class` was introduced in C++11 and addresses many of the issues that plagued the use of original `enum`.  For example, an `enum class` is fully scopped.
+
+I tend to gravitate towards the newer `enum class` form.  Even though there are some quirks with the newer form.  For example, one can't do straight comparison against an ordinal value and an `enum class` some casting is needed to make it happen.
+
+```
+enum class Colors {
+    black = 0,
+    red,
+    white
+};
+
+Colors c{Colors::red};
+if (c == 1) // error
+```
+
+One could have a helper function like:
+
+```
+template <typename E>
+constexpr int enumClToInt (E e) {
+    return static_cast<int> (e);
+}
+```
+
+Then the ordinal test could be done as:
+
+```
+if (enumClToInt (c) == 1) ... // ok
+```
+
+## make\_shared make\_unique <a name="makeshared" />
 The smart pointers, `std::shared_ptr` and `std::unique_ptr`, both have corresponding calls for making them, `std::make_shared()` and `std::make_unique()` respectfully. (Technically 'std::make_unique()' didn't come until C++14.  But one can copy over the implementation for it, if you still only have C++11.)
 
 So why should one consider using these over just calling `new`?
@@ -94,8 +135,7 @@ See [Sutter's Mill #89](https://herbsutter.com/2013/05/29/gotw-89-solution-smart
 
 Also the `make_*` can be tricky to work with if the class in question only has private constructors. For example, say the class is a factory.  A work around, would be to do what I did for the [Ch2: shared_pointer example](https://github.com/tlanc007/APIBookTweaks/tree/master/02_Qualities/shared_pointer).
 
-<a class="anchor" href="#using"></a>
-## Using
+## using
 C++11 introduced a new use the `using` keyword.  It can be used as an alias and for me replaces the need to use `typedef`.  I find it easier to read and feels more direct.
 
 ```
@@ -105,8 +145,7 @@ using MyObjectPtr = std::shared_ptr<class MyObject>;
 
 The feels cleaner.  Sort of like an assignment.  Also `using` can be templated and `typedef` can't.
 
-<a class="anchor" href="#summary"></a>
-## =delete
+## =delete <a name="equalsdelete" />
 Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
 
 Prior to C++11, if one didn't want the compiler to these special methods, one would have to define them manually and make them private.   Now, one can declare this methods with the =delete.

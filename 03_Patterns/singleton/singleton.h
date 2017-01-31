@@ -11,7 +11,7 @@
 
 /**
  1/5/17 -- Tal
- Using delete for copy ctor and assignment operator rather than private
+ Using delete for copy ctor and assignment operator rather than private (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#equalsdelete)
  **/
 
 #ifndef SINGLETON_H
