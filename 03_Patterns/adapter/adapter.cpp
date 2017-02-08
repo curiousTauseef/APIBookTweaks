@@ -9,28 +9,37 @@
 /// See http://APIBook.com/ for the latest version.
 ///
 
-#include "adapter.h"
-#include "original.h"
+/**
+ 2/8/17 -- Tal
+ -- replaced std::endl with NewLine (NL) char.
+   Generally it is inefficent to be flushing the buffer, unless you need to.
+ -- using unique_ptr for Object
+
+**/
+
 #include <iostream>
 
+#include "adapter.h"
+#include "original.h"
+
 using std::cout;
-using std::endl;
+constexpr char NL {'\n'};
+
 
 Adapter::Adapter()
-	: mOrig(new Original)
+: mOrig {std::make_unique<Original>() }
 {
-	cout << "Allocated new Original object inside Adapter" << endl;
+	cout << "Allocated new Original object inside Adapter" << NL;
 }
 
 Adapter::~Adapter()
 {
-	delete mOrig;
-	cout << "Destroyed Original object inside Adapter" << endl;
+	cout << "Destroyed Original object inside Adapter" << NL;
 }
 
 bool Adapter::DoSomething(int value)
 {
-	cout << "About to call Original::DoOperation from Adapter::DoSomething" << endl;
+	cout << "About to call Original::DoOperation from Adapter::DoSomething" << NL;
 	mOrig->DoOperation(value, true);
 	return true;
 }

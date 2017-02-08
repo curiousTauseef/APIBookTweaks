@@ -9,14 +9,22 @@
 /// See http://APIBook.com/ for the latest version.
 ///
 
-#include "original.h"
+/**
+ 2/8/17 -- Tal
+ -- replaced std::endl with NewLine (NL) char.
+   Generally it is inefficent to be flushing the buffer, unless you need to.
+
+ **/
+
 #include <iostream>
 
+#include "original.h"
+
 using std::cout;
-using std::endl;
+constexpr char NL {'\n'};
 
 void Original::DoOperation(int value, bool extra_arg)
 {
 	cout << "In Original::DoSomething with value " << value;
-	cout << " and flag " << extra_arg << endl;
+	cout << " and flag " << extra_arg << NL;
 }

@@ -9,8 +9,18 @@
 /// See http://APIBook.com/ for the latest version.
 ///
 
+/**
+ 2/8/17 -- Tal
+ -- switched to =delete to disable copying
+   instead of making them private
+ -- using unique_ptr for Object
+   removing need for explicit new/delete
+ **/
+
 #ifndef ADAPTER_H
 #define ADAPTER_H
+
+#include <memory>
 
 // forward declaration for the object wrapped by Adapter
 class Original;
@@ -22,17 +32,18 @@ class Adapter
 {
 public:
 	Adapter();
+    // prevent copying of this class because we had a pointer data member
+    Adapter(const Adapter &) = delete;
+    Adapter &operator =(const Adapter &) = delete;
 	~Adapter();
+    
 
 	/// Call through to Original::DoSomething()
 	bool DoSomething(int value);
 
 private:
-	// prevent copying of this class because we had a pointer data member
-	Adapter(const Adapter &);
-	const Adapter &operator =(const Adapter &);
 
-	Original *mOrig;
+    std::unique_ptr<Original> mOrig;
 };
 
 #endif
