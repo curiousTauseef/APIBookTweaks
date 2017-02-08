@@ -10,4 +10,5 @@ add_subdirectory(singleton)
 add_subdirectory(virtDestructor)
 add_subdirectory(factory_simple)
 add_subdirectory(factory_extensible)
+add_subdirectory(adapter)
 

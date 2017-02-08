@@ -1,4 +1,4 @@
-build
+build*
 .xcworkspace
 *.swp
 .DS_Store
