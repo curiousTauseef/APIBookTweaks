@@ -13,6 +13,7 @@
  2/8/17 -- Tal
  -- replaced std::endl with NewLine (NL) char.
    Generally it is inefficent to be flushing the buffer, unless you need to.
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#endl)
 
  **/
 
