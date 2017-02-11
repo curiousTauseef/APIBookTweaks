@@ -11,10 +11,9 @@
 
 /**
  01/06/17 -- Tal
- - switched to an enum for specifying the factory type to build instead of strings.
  - added apibook namespace
- 
- Using enum over string for factory to improve the API.
+ - switched to an enum for specifying the factory type to build instead of strings.
+    Using enum over string for factory to improve the API.
     * "A good API ... should also be difficult to misuse" -- Martin Reddy
        by doing this we are taking advantage of C++ strong type system by
        disallowing bad values.
