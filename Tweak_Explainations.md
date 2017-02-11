@@ -4,6 +4,7 @@
 * [brace-init-list](#braceinitlist)
 * [constexpr](#constexpr)
 * [enum class](#enumclass)
+* [smart pointers](#smartpointers)
 * [make_shared/make_unique](#makeshared)
 * [using](#using)
 * [=delete](#equalsdelete)
@@ -83,7 +84,7 @@ Giving the values a name makes one's intent clearer when the value is used.  Als
 So why `constexpr` and not just `const`?
 The later form only tells the compiler that this variable doesn't change.  While the former qualifier tells the compiler that this expression results in a compile time constant value.  This gives the compiler the to option to evaluate and combine the result of constexpr variables for a given statement all at compile time.
  
-## enum class
+## enum class 
 `enum class` vs `enum`
 `enum` is the original form of enumeration.  However, there are cases where these can lead to surprises and subtle bugs due to these surprises.  One of the issues relating to `enum` is that they typically pollute the global namespace (or at least whatever namespace they are defined in).
 
@@ -117,6 +118,14 @@ Then the ordinal test could be done as:
 if (enumClToInt (c) == 1) ... // ok
 ```
 
+<a name="smartpointers"></a>
+## Smart Pointers 
+There are plenty of other references on why one should be taking advantage of smart pointers.  So I won't go into detail here. Here are some bullet points:
+
+* Avoid owning raw pointers (non-owning raw pointers can be fine).  Also the [GSL](https://github.com/Microsoft/GSL) provides some nice alternatives when one has to deal with owning and non-owning raw pointers).
+* Avoid explicit new/delete
+
+
 ## make\_shared make\_unique <a name="makeshared" />
 The smart pointers, `std::shared_ptr` and `std::unique_ptr`, both have corresponding calls for making them, `std::make_shared()` and `std::make_unique()` respectfully. (Technically 'std::make_unique()' didn't come until C++14.  But one can copy over the implementation for it, if you still only have C++11.)
 
@@ -148,7 +157,10 @@ The feels cleaner.  Sort of like an assignment.  Also `using` can be templated a
 ## =delete <a name="equalsdelete" />
 Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
 
-Prior to C++11, if one didn't want the compiler to these special methods, one would have to define them manually and make them private.   Now, one can declare this methods with the =delete.
+Prior to C++11, if one didn't want the compiler to these special methods, one would have to define them manually and make them private.   Now, one can declare these methods with the =delete.
+
+NOTE:  = delete can be applied to any method and not just the special methods.
+
 
 ```
 class A {
@@ -158,5 +170,32 @@ public:
 };
 ```
 In the above example, the copy constructor for A is deleted and the compiler will give an error if the code attempts to use it.
+
+For example, from 03_adapter example where the copy constructor and copy assignment calls have been deleted:
+
+```
+class Adapter
+{
+public:
+	...
+    Adapter(const Adapter &) = delete;
+    Adapter &operator =(const Adapter &) = delete;
+	...
+};
+```
+If one tried something like:
+
+```
+Adapter adapter {};
+    
+Adapter adpt2 {adapter};
+Adapter adpt3 {};
+adpt3 = adapter;
+```
+The compiler would give two errors.  Something like:
+
+* Call to deleted constructor of 'Apdapter'
+* Overload resolution selected deleted operator'='.
+
 
 NOTE:  = delete can be applied to any method and not just the special methods.
