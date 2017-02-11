@@ -22,7 +22,7 @@ As mentioned in the top level Readme.md, my intent with the changes is to make b
 It is a good habit to let the compiler determine the right type automatically. There are plenty of other good references on the merits for using `auto`.  So I won't go into much detail here. A couple of these in bullet form:
 
 * This can avoid a number subtle errors
-* easier maintainance if the type changes
+* easier maintenance if the type changes
 * less typing
 
 An example of avoiding subtle errors.  Say one wants to iterate of a `map` container with a range based `for` loop.  The following may seem like a reasonable approach:
@@ -32,13 +32,13 @@ std::map <std::string, int> m;
 for (const std::pair<std::string, int>&, e: m) ...
 ```
 
-This example creates a temp object on each iteration.  As the keys for the `map` container aren't suppose to be (easily) changed, the above defintion for accessing the map is really std::pair<const std::string, int>.  Also this can just be avoided by using `auto` in the `for` loop:
+This example creates a temp object on each iteration.  As the keys for the `map` container aren't suppose to be (easily) changed, the above definition for accessing the map is really std::pair<const std::string, int>.  Also this can just be avoided by using `auto` in the `for` loop:
 
 ```
 for (const auto& e: m) ...
 ```
 
-Out of defference to the book, I have only switched to auto in a few places where the change shows a clear benefit of using `auto`.
+Out of deference to the book, I have only switched to auto in a few places where the change shows a clear benefit of using `auto`.
 
 <a name="braceinitlist" > </a>
 ## brace-init-list 
@@ -115,7 +115,7 @@ The later form only tells the compiler that this variable doesn't change.  While
 `enum class` vs `enum`
 `enum` is the original form of enumeration.  However, there are cases where these can lead to surprises and subtle bugs due to these surprises.  One of the issues relating to `enum` is that they typically pollute the global namespace (or at least whatever namespace they are defined in).
 
-`enum class` was introduced in C++11 and addresses many of the issues that plagued the use of original `enum`.  For example, an `enum class` is fully scopped.
+`enum class` was introduced in C++11 and addresses many of the issues that plagued the use of original `enum`.  For example, an `enum class` is fully scoped.
 
 I tend to gravitate towards the newer `enum class` form.  Even though there are some quirks with the newer form.  For example, one can't do straight comparison against an ordinal value and an `enum class` some casting is needed to make it happen.
 
@@ -188,7 +188,7 @@ The feels cleaner.  Sort of like an assignment.  Also `using` can be templated a
 
 <a name="equalsdelete"> </a>
 ## =delete 
-Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
+Under certain cases, the compiler will auto-generate certain special methods if they aren't explicitly provided in the class.
 
 Prior to C++11, if one didn't want the compiler to these special methods, one would have to define them manually and make them private.   Now, one can declare these methods with the =delete.
 
@@ -227,7 +227,7 @@ adpt3 = adapter;
 ```
 The compiler would give two errors.  Something like:
 
-* Call to deleted constructor of 'Apdapter'
+* Call to deleted constructor of 'Adapter'
 * Overload resolution selected deleted operator'='.
 
 
@@ -235,4 +235,4 @@ NOTE:  = delete can be applied to any method and not just the special methods.
 
 <a name="endl"></a>
 ## std::endl
-Besides adding a linefeed to the output, a `flush()` command is also given.  This can be a source of inefficency.  Unless there is an explicit need for flushing the output buffer, one should just use the newline character, `'\n'`, instead.
+Besides adding a linefeed to the output, a `flush()` command is also given.  This can be a source of inefficiency.  Unless there is an explicit need for flushing the output buffer, one should just use the newline character, `'\n'`, instead.
