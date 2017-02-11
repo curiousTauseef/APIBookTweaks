@@ -13,6 +13,7 @@
  1/30/17 -- Tal
  -- using nullptr instead of NULL
  -- switched to auto for mRenders.find()
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#auto)
  -- switched to unique_ptr/make_unique rather than needing to
    use new() and remembering to call delete.
    see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointer)

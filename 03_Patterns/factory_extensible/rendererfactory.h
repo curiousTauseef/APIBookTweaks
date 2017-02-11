@@ -15,7 +15,8 @@
     for CreateCallback and CallbackMap
    see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#using)
  -- using unordered_map instead of map
-   insertions can be faster as sorting isn't important.
+   insertions can be faster as keys aren't sorted.
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#unorderedmap)
  -- switched to unique_ptr/make_unique rather than needing to
    use new() and remembering to call delete.
    see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointer)
