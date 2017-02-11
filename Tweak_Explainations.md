@@ -1,11 +1,13 @@
 # Tweak Explanations
 ## Table of Contents
 * [Summary](#summary)
+* [auto](#auto)
 * [brace-init-list](#braceinitlist)
 * [constexpr](#constexpr)
 * [enum class](#enumclass)
 * [smart pointers](#smartpointers)
 * [make_shared/make_unique](#makeshared)
+* [unordered_map](#unorderedmap)
 * [using](#using)
 * [=delete](#equalsdelete)
 * [std::endl](#endl)
@@ -15,6 +17,28 @@
 The following is a synopsis of the tweaks applied and the reasons they were used.
 
 As mentioned in the top level Readme.md, my intent with the changes is to make better use of modern C++.
+
+## auto
+It is a good habit to let the compiler determine the right type automatically. There are plenty of other good references on the merits for using `auto`.  So I won't go into much detail here. A couple of these in bullet form:
+
+* This can avoid a number subtle errors
+* easier maintainance if the type changes
+* less typing
+
+An example of avoiding subtle errors.  Say one wants to iterate of a `map` container with a range based `for` loop.  The following may seem like a reasonable approach:
+
+```
+std::map <std::string, int> m;
+for (const std::pair<std::string, int>&, e: m) ...
+```
+
+This example creates a temp object on each iteration.  As the keys for the `map` container aren't suppose to be (easily) changed, the above defintion for accessing the map is really std::pair<const std::string, int>.  Also this can just be avoided by using `auto` in the `for` loop:
+
+```
+for (const auto& e: m) ...
+```
+
+Out of defference to the book, I have only switched to auto in a few places where the change shows a clear benefit of using `auto`.
 
 <a name="braceinitlist" > </a>
 ## brace-init-list 
@@ -146,6 +170,11 @@ However you will need to use `new`, if the class needs to have custom deleter or
 See [Sutter's Mill #89](https://herbsutter.com/2013/05/29/gotw-89-solution-smart-pointers/) for great explanations for avoiding `new` and preferring `make_unique` and `make_shared` instead.
 
 Also the `make_*` can be tricky to work with if the class in question only has private constructors. For example, say the class is a factory.  A work around, would be to do what I did for the [Ch2: shared_pointer example](https://github.com/tlanc007/APIBookTweaks/tree/master/02_Qualities/shared_pointer).
+
+<a name="unorderedmap"> </a>
+## unordered_map
+Not much to say here.  If there is no need for the keys to be sorted, then use unordered_map.  Insertions will be cheaper.
+
 
 ## using
 C++11 introduced a new use the `using` keyword.  It can be used as an alias and for me replaces the need to use `typedef`.  I find it easier to read and feels more direct.
