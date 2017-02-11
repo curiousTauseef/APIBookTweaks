@@ -8,6 +8,7 @@
 * [make_shared/make_unique](#makeshared)
 * [using](#using)
 * [=delete](#equalsdelete)
+* [std::endl](#endl)
 
 
 ## Summary
@@ -202,3 +203,7 @@ The compiler would give two errors.  Something like:
 
 
 NOTE:  = delete can be applied to any method and not just the special methods.
+
+<a name="endl"></a>
+## std::endl
+Besides adding a linefeed to the output, a `flush()` command is also given.  This can be a source of inefficency.  Unless there is an explicit need for flushing the output buffer, one should just use the newline character, `'\n'`, instead.
