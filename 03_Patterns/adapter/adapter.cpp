@@ -14,6 +14,8 @@
  -- replaced std::endl with NewLine (NL) char.
    Generally it is inefficent to be flushing the buffer, unless you need to.
  -- using unique_ptr for Object
+   removing need for explicit new/delete
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointers)
 
 **/
 

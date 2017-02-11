@@ -13,8 +13,10 @@
  2/8/17 -- Tal
  -- switched to =delete to disable copying
    instead of making them private
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#equalsdelete)
  -- using unique_ptr for Object
    removing need for explicit new/delete
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointers)
  **/
 
 #ifndef ADAPTER_H
@@ -32,7 +34,7 @@ class Adapter
 {
 public:
 	Adapter();
-    // prevent copying of this class because we had a pointer data member
+    // prevent copying of this class because we have a pointer data member
     Adapter(const Adapter &) = delete;
     Adapter &operator =(const Adapter &) = delete;
 	~Adapter();
