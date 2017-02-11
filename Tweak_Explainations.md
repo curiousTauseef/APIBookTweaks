@@ -15,7 +15,8 @@ The following is a synopsis of the tweaks applied and the reasons they were used
 
 As mentioned in the top level Readme.md, my intent with the changes is to make better use of modern C++.
 
-## brace-init-list <a name="braceinitlist" />
+<a name="braceinitlist" > </a>
+## brace-init-list 
 *Technically, this form of direct-list-initialization.*
 
 I prefer to use what is known as uniform initialization, that was introduced in C++11.
@@ -84,6 +85,7 @@ Giving the values a name makes one's intent clearer when the value is used.  Als
 So why `constexpr` and not just `const`?
 The later form only tells the compiler that this variable doesn't change.  While the former qualifier tells the compiler that this expression results in a compile time constant value.  This gives the compiler the to option to evaluate and combine the result of constexpr variables for a given statement all at compile time.
  
+ <a name="enumclass" > </a>
 ## enum class 
 `enum class` vs `enum`
 `enum` is the original form of enumeration.  However, there are cases where these can lead to surprises and subtle bugs due to these surprises.  One of the issues relating to `enum` is that they typically pollute the global namespace (or at least whatever namespace they are defined in).
@@ -125,8 +127,8 @@ There are plenty of other references on why one should be taking advantage of sm
 * Avoid owning raw pointers (non-owning raw pointers can be fine).  Also the [GSL](https://github.com/Microsoft/GSL) provides some nice alternatives when one has to deal with owning and non-owning raw pointers).
 * Avoid explicit new/delete
 
-
-## make\_shared make\_unique <a name="makeshared" />
+<a name="makeshared"> </a>
+## make\_shared make\_unique 
 The smart pointers, `std::shared_ptr` and `std::unique_ptr`, both have corresponding calls for making them, `std::make_shared()` and `std::make_unique()` respectfully. (Technically 'std::make_unique()' didn't come until C++14.  But one can copy over the implementation for it, if you still only have C++11.)
 
 So why should one consider using these over just calling `new`?
@@ -154,7 +156,8 @@ using MyObjectPtr = std::shared_ptr<class MyObject>;
 
 The feels cleaner.  Sort of like an assignment.  Also `using` can be templated and `typedef` can't.
 
-## =delete <a name="equalsdelete" />
+<a name="equalsdelete"> </a>
+## =delete 
 Under certain cases, the compiler will autogenerate certain special methods if they aren't explcitly provided in the class.
 
 Prior to C++11, if one didn't want the compiler to these special methods, one would have to define them manually and make them private.   Now, one can declare these methods with the =delete.
