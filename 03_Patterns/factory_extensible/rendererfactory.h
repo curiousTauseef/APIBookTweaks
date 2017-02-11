@@ -13,10 +13,13 @@
  1/30/17 -- Tal
  -- switched to using alias from typedef
     for CreateCallback and CallbackMap
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#using)
  -- using unordered_map instead of map
    insertions can be faster as sorting isn't important.
  -- switched to unique_ptr/make_unique rather than needing to
    use new() and remembering to call delete.
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointer)
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#makeshared)
  
  **/
 

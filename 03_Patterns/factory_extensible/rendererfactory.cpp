@@ -15,6 +15,8 @@
  -- switched to auto for mRenders.find()
  -- switched to unique_ptr/make_unique rather than needing to
    use new() and remembering to call delete.
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointer)
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#makeshared)
  
  **/
 

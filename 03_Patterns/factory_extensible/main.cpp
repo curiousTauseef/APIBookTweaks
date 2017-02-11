@@ -13,8 +13,12 @@
  1/30/17 -- Tal
  -- replaced std::endl with NewLine (NL) char.
    Generally it is inefficent to be flushing the buffer, unless you need to.
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#endl)
  -- switched to unique_ptr/make_unique rather than needing to
    use new() and remembering to call delete.
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#smartpointer)
+   see Tweak_Explainations.md (https://github.com/tlanc007/APIBookTweaks/blob/master/Tweak_Explainations.md#makeshared)
+
  **/
 #include "rendererfactory.h"
 #include <iostream>
